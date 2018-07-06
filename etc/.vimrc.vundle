@@ -1,0 +1,16 @@
+set encoding=utf-8
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'git://github.com/altercation/vim-colors-solarized.git'
+Plugin 'https://github.com/Valloric/YouCompleteMe'
+Plugin 'https://github.com/fatih/vim-go.git'
+Plugin 'https://github.com/honza/dockerfile.vim'
+Plugin 'git://github.com/tpope/vim-commentary.git'
+Plugin 'https://github.com/mileszs/ack.vim'
+Plugin 'https://github.com/scrooloose/nerdtree.git'
+Plugin 'https://github.com/majutsushi/tagbar.git'
+call vundle#end()
+filetype plugin indent on

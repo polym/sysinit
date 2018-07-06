@@ -1,0 +1,59 @@
+export TERM=xterm-256color
+
+# Git completion
+source ~/.git-completion.bash
+source ~/.git-prompt.sh 
+
+export PS1='\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+
+    # Show the currently running command in the terminal title:
+    # http://www.davidpashley.com/articles/xterm-titles-with-bash.html
+    show_command_in_title_bar()
+    {
+        case "$BASH_COMMAND" in
+            *\033]0*)
+                # The command is trying to set the title bar as well;
+                # this is most likely the execution of $PROMPT_COMMAND.
+                # In any case nested escapes confuse the terminal, so don't
+                # output them.
+                ;;
+            *)
+                echo -ne "\033]0;${USER}@${HOSTNAME}: ${BASH_COMMAND}\007"
+                ;;
+        esac
+    }
+    trap show_command_in_title_bar DEBUG
+    ;;
+*)
+    ;;
+esac
+
+source ~/.bash_git
+
+# Go environment 
+export GOPATH=$HOME/golang/3rdpkg:$HOME/golang/go
+export GOROOT=$HOME/golang/go
+export GOBIN=$GOROOT/bin
+export PATH=$GOROOT/bin:$PATH
+export GOROOT_BOOTSTRAP=
+
+alias diff='colordiff'
+alias apt-get='sudo apt-get'
+
+export LC_ALL=C
+#export LANG=zh_CN.UTF-8
+#export LC_CTYPE="zh_CN.UTF-8"
+
+_upx()
+{
+    local cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=( $(compgen -W "ls pwd cd mkdir put get login logout rm" -- $cur) )
+}
+complete -F _upx upx
+ 
+alias tmux='tmux -u'
