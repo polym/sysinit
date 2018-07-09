@@ -8,11 +8,12 @@ services:
 - docker
 
 jobs: 
-- stage: ubuntu-16.04
-  script:
-  - id=`docker run -d -v $(pwd):/sysinit ubuntu:16.04 bash -i /sysinit/start.sh`
-  - docker attach $id
-- stage: ubuntu-18.04
-  script:
-  - id=`docker run -d -v $(pwd):/sysinit ubuntu:18.04 bash -i /sysinit/start.sh`
-  - docker attach $id
+  include:
+  - stage: ubuntu-16.04
+    script:
+    - id=`docker run -d -v $(pwd):/sysinit ubuntu:16.04 bash -i /sysinit/start.sh`
+    - docker attach $id
+  - stage: ubuntu-18.04
+    script:
+    - id=`docker run -d -v $(pwd):/sysinit ubuntu:18.04 bash -i /sysinit/start.sh`
+    - docker attach $id
