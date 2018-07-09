@@ -15,5 +15,5 @@ jobs:
     - docker attach $id
   - stage: ubuntu-18.04
     script:
-    - id=`docker run -d -e CI=true -v $(pwd):/sysinit ubuntu:18.04 bash -i "cd /sysinit && ./start.sh"`
+    - id=`docker run -d -e CI=true -v $(pwd):/sysinit ubuntu:18.04 bash -c "cd /sysinit && ./start.sh"`
     - docker attach $id
