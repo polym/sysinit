@@ -48,7 +48,7 @@ export GOROOT_BOOTSTRAP=$HOME/golang/go-1.4
 
 ## https://github.com/moovweb/gvm/issues/286
 GCC_VERSION=$(gcc -dumpversion)
-if [[ "$GCC_VERSION" >= "7" ]]; then
+if [[ "$GCC_VERSION" > "7" || "$GCC_VERSION" = "7" ]]; then
     CC="gcc -Wimplicit-fallthrough=0 -Wno-error=shift-negative-value -Wno-shift-negative-value"
 else
     CC="gcc -Wno-error=shift-negative-value -Wno-shift-negative-value"
