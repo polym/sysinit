@@ -24,6 +24,13 @@ sed -i -e 's|\(PrintMotd\s*\)no|\1yes|' /etc/ssh/sshd_config
 sed -i -e 's|#\(PrintMotd\s*yes\)|\1|' /etc/ssh/sshd_config
 sed -i -e 's|#\(PrintMotd\s*\)no|\1yes|' /etc/ssh/sshd_config
 
+### SSH Client Config
+echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+echo "UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config
+if [ ! -f /root/.ssh/id_rsa ]; then
+    ssh-keygen -t rsa -N "" -f /root/.ssh/id_rsa
+fi
+
 ### Install Golang From Source
 mkdir -p $HOME/golang/3rdpkg \
     && cd $HOME/golang \
