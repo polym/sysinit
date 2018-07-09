@@ -1,3 +1,4 @@
+#!/bin/bash
 set -xe
 ## Global VAR
 pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server"
@@ -46,8 +47,8 @@ export GOROOT=$HOME/golang/go
 export GOROOT_BOOTSTRAP=$HOME/golang/go-1.4
 
 ## https://github.com/moovweb/gvm/issues/286
-GCC_VERSION=$(gcc --version | grep ^gcc | sed 's/^.* //g')
-if [[ "$GCC_VERSION" > "7.0.0" ]]; then
+GCC_VERSION=$(gcc -dumpversion)
+if [[ "$GCC_VERSION" >= "7" ]]; then
     CC="gcc -Wimplicit-fallthrough=0 -Wno-error=shift-negative-value -Wno-shift-negative-value"
 else
     CC="gcc -Wno-error=shift-negative-value -Wno-shift-negative-value"
