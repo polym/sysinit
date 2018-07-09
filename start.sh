@@ -46,7 +46,12 @@ export GOROOT=$HOME/golang/go
 export GOROOT_BOOTSTRAP=$HOME/golang/go-1.4
 
 ## https://github.com/moovweb/gvm/issues/286
-CC="gcc -Wimplicit-fallthrough=0 -Wno-error=shift-negative-value -Wno-shift-negative-value"
+GCC_VERSION=$(gcc --version | grep ^gcc | sed 's/^.* //g')
+if [[ "$GCC_VERSION" > "7.0.0" ]]; then
+    CC="gcc -Wimplicit-fallthrough=0 -Wno-error=shift-negative-value -Wno-shift-negative-value"
+else
+    CC="gcc -Wno-error=shift-negative-value -Wno-shift-negative-value"
+fi
 
 ln -s $HOME/golang/go-1.4 $GOROOT
 cd $GOROOT && git checkout go1.4.2 && cd src && CC=$CC CGO_ENABLED=0 ./make.bash
