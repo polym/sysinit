@@ -3,12 +3,17 @@ set -xe
 pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server"
 
 ### Apt Install
-sed -i 's/archive.ubuntu.com/mirrors.163.com/' /etc/apt/sources.list
+if [ "$CI" != "true" ]; then
+    # travis ci connect 163.com timeout
+    sed -i 's/archive.ubuntu.com/mirrors.163.com/' /etc/apt/sources.list
+fi
 apt-get update && apt-get install -y $pkgs
 
 ### System Config
 unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-ntpdate -u -o3 time1.aliyun.com
+if [ "$CI" != "true" ]; then
+    ntpdate -u -o3 time1.aliyun.com
+fi
 mkdir -p /etc/cron.d && echo "0 * * * * (ntpdate -u -o3 time1.aliyun.com)" > /etc/cron.d/ntpdate
 echo "nameserver 114.114.114.114" > /etc/resolv.conf
 
