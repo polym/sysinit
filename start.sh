@@ -1,7 +1,7 @@
 #!/bin/bash
 set -xe
 ## Global VAR
-pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip"
+pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip jq"
 
 ### Apt Install
 if [ "$CI" != "true" ]; then
@@ -40,7 +40,9 @@ fi
 ### Install Golang From Source
 mkdir -p $HOME/golang/3rdpkg \
     && cd $HOME/golang \
-    && git clone https://github.com/golang/go.git go-src \
+#    && git clone https://github.com/golang/go.git go-src \
+    && wget http://collection.b0.upaiyun.com/softwares/go-src.tar.gz \
+    && tar zxvf go-src.tar.gz && rm go-src.tar.gz \
     && cp -R go-src go-1.4 && cp -R go-src go-1.9
 
 export GOROOT=$HOME/golang/go
@@ -71,3 +73,6 @@ mkdir -p $HOME/.vim/bundle && git clone https://github.com/VundleVim/Vundle.vim.
 
 ### Install upx
 go get github.com/polym/upx
+
+### Install https://github.com/wg/wrk
+cd /tmp && git clone https://github.com/wg/wrk && cd wrk && make && mv wrk /usr/bin
