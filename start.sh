@@ -16,7 +16,7 @@ if [ "$CI" != "true" ]; then
     ntpdate -u -o3 time1.aliyun.com
 fi
 mkdir -p /etc/cron.d && echo "0 * * * * (ntpdate -u -o3 time1.aliyun.com)" > /etc/cron.d/ntpdate
-echo "nameserver 114.114.114.114" > /etc/resolv.conf
+echo "nameserver 223.5.5.5" > /etc/resolv.conf
 
 ### Config it
 cp -R etc/. $HOME
