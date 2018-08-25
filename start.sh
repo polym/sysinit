@@ -40,7 +40,6 @@ fi
 ### Install Golang From Source
 mkdir -p $HOME/golang/3rdpkg \
     && cd $HOME/golang \
-#    && git clone https://github.com/golang/go.git go-src \
     && wget http://collection.b0.upaiyun.com/softwares/go-src.tar.gz \
     && tar zxvf go-src.tar.gz && rm go-src.tar.gz \
     && cp -R go-src go-1.4 && cp -R go-src go-1.9
