@@ -18,6 +18,9 @@ fi
 mkdir -p /etc/cron.d && echo "0 * * * * (ntpdate -u -o3 time1.aliyun.com)" > /etc/cron.d/ntpdate
 echo "nameserver 223.5.5.5" > /etc/resolv.conf
 
+export LANGUAGE=en_US.UTF-8; export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8; locale-gen en_US.UTF-8
+dpkg-reconfigure locales
+
 ### Config it
 cp -R etc/. $HOME
 

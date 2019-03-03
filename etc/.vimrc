@@ -26,7 +26,14 @@ Plugin 'git://github.com/tpope/vim-commentary.git'
 Plugin 'https://github.com/mileszs/ack.vim'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'https://github.com/majutsushi/tagbar.git'
+Plugin 'https://github.com/lambdalisue/gina.vim.git'
 call vundle#end()
+
+"let g:go_def_mode = 'godef'
+let g:go_def_reuse_buffer = 1
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 set gcr=a:block-blinkon0
 set guioptions-=l
@@ -57,8 +64,12 @@ colorscheme solarized
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_width = 60
 
-map <F2> :NERDTreeToggle<CR>
+map <Leader>t :split<CR>
+
+map <Leader>f :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+let g:NERDTreeDirArrowExpandable = '📁'
+let g:NERDTreeDirArrowCollapsible = '📂'
 
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
@@ -98,3 +109,4 @@ let g:ycm_filetype_blacklist = {
       \ 'vimwiki' : 1,
       \ 'gitcommit' : 1,
       \}
+let g:ycm_log_level = 'debug'
