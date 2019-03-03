@@ -1,7 +1,7 @@
 #!/bin/bash
 set -xe
 ## Global VAR
-pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip jq"
+pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip jq locales"
 
 ### Apt Install
 if [ "$CI" != "true" ]; then
