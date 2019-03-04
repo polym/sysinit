@@ -22,7 +22,7 @@ export LANGUAGE=en_US.UTF-8; export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8;
 dpkg-reconfigure locales
 
 ### Config it
-cp -R etc/. $HOME
+echo ". $HOME/.bashrc.user" >> $HOME/.bashrc && find /sysinit/etc/ -type f | xargs -i ln -s {} $HOME/
 
 ### Motd
 rm -rf /etc/update-motd.d/* && cp bin/motd.py /etc/update-motd.d/50-sysinfo && chmod +x /etc/update-motd.d/50-sysinfo
