@@ -45,7 +45,7 @@ mkdir -p $HOME/golang/3rdpkg \
     && cd $HOME/golang \
     && wget http://collection.b0.upaiyun.com/softwares/go-src.tar.gz \
     && tar zxvf go-src.tar.gz && rm go-src.tar.gz \
-    && cp -R go-src go-1.4 && cp -R go-src go-1.9
+    && cp -R go-src go-1.4 && cp -R go-src go-1.11
 
 export GOROOT=$HOME/golang/go
 export GOROOT_BOOTSTRAP=$HOME/golang/go-1.4
@@ -62,8 +62,8 @@ ln -s $HOME/golang/go-1.4 $GOROOT
 cd $GOROOT && git checkout go1.4.2 && cd src && CC=$CC CGO_ENABLED=0 ./make.bash
 unlink $GOROOT
 
-ln -s $HOME/golang/go-1.9 $GOROOT
-cd $GOROOT && git checkout go1.9.5 && cd src && ./make.bash
+ln -s $HOME/golang/go-1.11 $GOROOT
+cd $GOROOT && git checkout go1.11.5 && cd src && ./make.bash
 
 . $HOME/.bashrc.user
 
