@@ -36,7 +36,7 @@ esac
 source ~/.bash_git
 
 # Go environment 
-export GOPATH=$HOME/golang/3rdpkg:$HOME/golang/go
+export GOPATH=$HOME/golang/3rdpkg:$HOME/golang/go:/disk/ssd1/work/upyun
 export GOROOT=$HOME/golang/go
 export GOBIN=$GOROOT/bin
 export PATH=$GOROOT/bin:$PATH

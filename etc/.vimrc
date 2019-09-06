@@ -67,6 +67,7 @@ let g:tagbar_width = 60
 map <Leader>t :split<CR>
 
 map <Leader>f :NERDTreeToggle<CR>
+map <Leader>q :NERDTreeFocus<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 let g:NERDTreeDirArrowExpandable = '📁'
 let g:NERDTreeDirArrowCollapsible = '📂'
@@ -74,6 +75,8 @@ let g:NERDTreeDirArrowCollapsible = '📂'
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+"let g:go_info_mode = "gopls"
+let g:go_def_mode = "gopls"
 "let g:go_fmt_command = "goimports"
 
 let g:SignatureMap = {
@@ -110,3 +113,6 @@ let g:ycm_filetype_blacklist = {
       \ 'gitcommit' : 1,
       \}
 let g:ycm_log_level = 'debug'
+let g:ycm_show_diagnostics_ui = 1
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 0

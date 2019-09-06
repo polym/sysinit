@@ -1,7 +1,9 @@
 #!/bin/bash
 set -xe
+ROOT=$(dirname "${BASH_SOURCE}")
+echo $ROOT
 ## Global VAR
-pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip jq locales"
+pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip jq locales cmake"
 
 ### Apt Install
 if [ "$CI" != "true" ]; then
@@ -22,10 +24,10 @@ export LANGUAGE=en_US.UTF-8; export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8;
 dpkg-reconfigure locales
 
 ### Config it
-echo ". $HOME/.bashrc.user" >> $HOME/.bashrc && find /sysinit/etc/ -type f | xargs -i ln -s {} $HOME/
+echo ". $HOME/.bashrc.user" >> $HOME/.bashrc && find $(ROOT)/etc/ -type f | xargs -i ln -s {} $HOME/
 
 ### Motd
-rm -rf /etc/update-motd.d/* && cp bin/motd.py /etc/update-motd.d/50-sysinfo && chmod +x /etc/update-motd.d/50-sysinfo
+rm -rf /etc/update-motd.d/* && cp $(ROOT)/bin/motd.py /etc/update-motd.d/50-sysinfo && chmod +x /etc/update-motd.d/50-sysinfo
 sed -i -e 's|\(PrintLastLog\s*\)yes|\1no|' /etc/ssh/sshd_config
 sed -i -e 's|#\(PrintLastLog\s*no\)|\1|' /etc/ssh/sshd_config
 sed -i -e 's|#\(PrintLastLog\s*\)yes|\1no|' /etc/ssh/sshd_config
@@ -45,7 +47,7 @@ mkdir -p $HOME/golang/3rdpkg \
     && cd $HOME/golang \
     && wget http://collection.b0.upaiyun.com/softwares/go-src.tar.gz \
     && tar zxvf go-src.tar.gz && rm go-src.tar.gz \
-    && cp -R go-src go-1.4 && cp -R go-src go-1.11
+    && cp -R go-src go-1.4 && cp -R go-src go-1.12
 
 export GOROOT=$HOME/golang/go
 export GOROOT_BOOTSTRAP=$HOME/golang/go-1.4
@@ -62,8 +64,8 @@ ln -s $HOME/golang/go-1.4 $GOROOT
 cd $GOROOT && git checkout go1.4.2 && cd src && CC=$CC CGO_ENABLED=0 ./make.bash
 unlink $GOROOT
 
-ln -s $HOME/golang/go-1.11 $GOROOT
-cd $GOROOT && git checkout go1.11.5 && cd src && ./make.bash
+ln -s $HOME/golang/go-1.12 $GOROOT
+cd $GOROOT && git checkout go1.12.9 && cd src && ./make.bash
 
 . $HOME/.bashrc.user
 
