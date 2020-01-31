@@ -3,7 +3,7 @@ set -xe
 ROOT=$(dirname "${BASH_SOURCE}")
 echo $ROOT
 ## Global VAR
-pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip jq locales cmake"
+pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip jq locales cmake colordiff"
 
 ### Apt Install
 if [ "$CI" != "true" ]; then
@@ -11,6 +11,9 @@ if [ "$CI" != "true" ]; then
     sed -i 's/archive.ubuntu.com/mirrors.163.com/' /etc/apt/sources.list
 fi
 apt-get update && apt-get install -y $pkgs
+
+### GIT Editor
+git config --global core.editor vim
 
 ### System Config
 unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
@@ -24,10 +27,10 @@ export LANGUAGE=en_US.UTF-8; export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8;
 dpkg-reconfigure locales
 
 ### Config it
-echo ". $HOME/.bashrc.user" >> $HOME/.bashrc && find $(ROOT)/etc/ -type f | xargs -i ln -s {} $HOME/
+echo ". $HOME/.bashrc.user" >> $HOME/.bashrc && find ${ROOT}/etc/ -type f | xargs -i ln -s {} $HOME/
 
 ### Motd
-rm -rf /etc/update-motd.d/* && cp $(ROOT)/bin/motd.py /etc/update-motd.d/50-sysinfo && chmod +x /etc/update-motd.d/50-sysinfo
+rm -rf /etc/update-motd.d/* && cp ${ROOT}/bin/motd.py /etc/update-motd.d/50-sysinfo && chmod +x /etc/update-motd.d/50-sysinfo
 sed -i -e 's|\(PrintLastLog\s*\)yes|\1no|' /etc/ssh/sshd_config
 sed -i -e 's|#\(PrintLastLog\s*no\)|\1|' /etc/ssh/sshd_config
 sed -i -e 's|#\(PrintLastLog\s*\)yes|\1no|' /etc/ssh/sshd_config

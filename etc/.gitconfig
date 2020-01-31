@@ -17,3 +17,5 @@
 
 [url "git@gitlab.widget-inc.com:"]
         insteadOf = http://gitlab.widget-inc.com/
+[core]
+	editor = vim

@@ -27,6 +27,8 @@ Plugin 'https://github.com/mileszs/ack.vim'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'https://github.com/majutsushi/tagbar.git'
 Plugin 'https://github.com/lambdalisue/gina.vim.git'
+Plugin 'https://github.com/greymd/oscyank.vim'
+Plugin 'https://github.com/junegunn/fzf.git'
 call vundle#end()
 
 "let g:go_def_mode = 'godef'
@@ -72,12 +74,20 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 let g:NERDTreeDirArrowExpandable = '📁'
 let g:NERDTreeDirArrowCollapsible = '📂'
 
+map <Leader>y :Oscyank<CR>
+
+map <Leader>TT :GoTestFunc<CR>
+map <Leader>TG :GoTestFunc<CR>
+
+map <Leader>F :FZF<CR>
+
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 "let g:go_info_mode = "gopls"
 let g:go_def_mode = "gopls"
 "let g:go_fmt_command = "goimports"
+let g:go_test_timeout = '10m'
 
 let g:SignatureMap = {
         \ 'Leader'             :  "m",
