@@ -1,6 +1,6 @@
 #!/bin/bash
 set -xe
-ROOT=$(dirname "${BASH_SOURCE}")
+ROOT=$(pwd)/$(dirname "${BASH_SOURCE}")
 echo $ROOT
 ## Global VAR
 pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip jq locales cmake colordiff"
@@ -13,7 +13,7 @@ fi
 apt-get update && apt-get install -y $pkgs
 
 ### GIT Editor
-git config --global core.editor vim
+#git config --global core.editor vim
 
 ### System Config
 unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

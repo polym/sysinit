@@ -19,7 +19,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'git://github.com/altercation/vim-colors-solarized.git'
-Plugin 'https://github.com/Valloric/YouCompleteMe'
+"Plugin 'https://github.com/Valloric/YouCompleteMe'
 Plugin 'https://github.com/fatih/vim-go.git'
 Plugin 'https://github.com/honza/dockerfile.vim'
 Plugin 'git://github.com/tpope/vim-commentary.git'
@@ -29,11 +29,12 @@ Plugin 'https://github.com/majutsushi/tagbar.git'
 Plugin 'https://github.com/lambdalisue/gina.vim.git'
 Plugin 'https://github.com/greymd/oscyank.vim'
 Plugin 'https://github.com/junegunn/fzf.git'
+Plugin 'https://github.com/codota/tabnine-vim'
 call vundle#end()
 
 "let g:go_def_mode = 'godef'
 let g:go_def_reuse_buffer = 1
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>d <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
@@ -80,6 +81,9 @@ map <Leader>TT :GoTestFunc<CR>
 map <Leader>TG :GoTestFunc<CR>
 
 map <Leader>F :FZF<CR>
+
+map <Leader>GS :Gina status --opener=vnew<CR>
+map <Leader>GM :Gina commit<CR>
 
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
