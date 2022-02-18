@@ -3,7 +3,10 @@ set -xe
 ROOT=$(pwd)/$(dirname "${BASH_SOURCE}")
 echo $ROOT
 ## Global VAR
-pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python openssh-server unzip python-pip jq locales cmake colordiff"
+pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python3 openssh-server unzip python3-pip jq locales cmake colordiff zsh ripgrep"
+
+export DEBIAN_FRONTEND=noninteractive
+export TZ=Etc/UTC
 
 ### Apt Install
 if [ "$CI" != "true" ]; then
@@ -11,9 +14,6 @@ if [ "$CI" != "true" ]; then
     sed -i 's/archive.ubuntu.com/mirrors.163.com/' /etc/apt/sources.list
 fi
 apt-get update && apt-get install -y $pkgs
-
-### GIT Editor
-#git config --global core.editor vim
 
 ### System Config
 unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
@@ -27,7 +27,11 @@ export LANGUAGE=en_US.UTF-8; export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8;
 dpkg-reconfigure locales
 
 ### Config it
-echo ". $HOME/.bashrc.user" >> $HOME/.bashrc && find ${ROOT}/etc/ -type f | xargs -i ln -s {} $HOME/
+if [ ! -f $HOME/.bashrc.user ]; then
+    echo ". $HOME/.bashrc.user" >> $HOME/.bashrc \
+        && echo ". $HOME/.zshrc.user" >> $HOME/.zshrc \
+        && find ${ROOT}/etc/ -type f | xargs -i ln -s {} $HOME/
+fi
 
 ### Motd
 rm -rf /etc/update-motd.d/* && cp ${ROOT}/bin/motd.py /etc/update-motd.d/50-sysinfo && chmod +x /etc/update-motd.d/50-sysinfo
@@ -49,26 +53,22 @@ fi
 mkdir -p $HOME/golang/3rdpkg \
     && cd $HOME/golang \
     && wget http://collection.b0.upaiyun.com/softwares/go-src.tar.gz \
-    && tar zxvf go-src.tar.gz && rm go-src.tar.gz \
-    && cp -R go-src go-1.4 && cp -R go-src go-1.12
+    && tar zxvf go-src.tar.gz && rm go-src.tar.gz && mv go go-src \
+    && cp -R go-src go-1.4 && cp -R go-src go-1.17
 
 export GOROOT=$HOME/golang/go
 export GOROOT_BOOTSTRAP=$HOME/golang/go-1.4
 
 ## https://github.com/moovweb/gvm/issues/286
-GCC_VERSION=$(gcc -dumpversion)
-if [[ "$GCC_VERSION" > "7" || "$GCC_VERSION" == "7" ]]; then
-    CC="gcc -Wimplicit-fallthrough=0 -Wno-error=shift-negative-value -Wno-shift-negative-value"
-else
-    CC="gcc"
-fi
+# apt install -y gcc-7
+# CC="gcc-7 -Wimplicit-fallthrough=0 -Wno-error=shift-negative-value -Wno-shift-negative-value -Wno-stringop-truncation"
 
 ln -s $HOME/golang/go-1.4 $GOROOT
-cd $GOROOT && git checkout go1.4.2 && cd src && CC=$CC CGO_ENABLED=0 ./make.bash
+cd $GOROOT && git checkout go1.4.3 && cd src && CGO_ENABLED=0 ./make.bash
 unlink $GOROOT
 
-ln -s $HOME/golang/go-1.12 $GOROOT
-cd $GOROOT && git checkout go1.12.9 && cd src && ./make.bash
+ln -s $HOME/golang/go-1.17 $GOROOT
+cd $GOROOT && git checkout go1.17.7 && cd src && ./make.bash
 
 . $HOME/.bashrc.user
 
@@ -79,7 +79,10 @@ mkdir -p $HOME/.vim/bundle && git clone https://github.com/VundleVim/Vundle.vim.
 ### Install Docker
 
 ### Install upx
-go get github.com/polym/upx
+go install github.com/upyun/upx@v0.3.6
 
 ### Install https://github.com/wg/wrk
 cd /tmp && git clone https://github.com/wg/wrk && cd wrk && make && mv wrk /usr/bin
+
+### Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh

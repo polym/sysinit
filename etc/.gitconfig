@@ -5,7 +5,6 @@
 	ui = auto
 
 [alias]
-
     lg = log --graph --abbrev-commit --decorate --format=format:'%C(red)%h%C(reset) -%C(yellow)%d %C(reset)%C(blue)%aD%C(reset) %C(green)(%ar)%C(reset)%n''            %C(cyan)%s%C(reset) %C(magenta)- < %an >%C(reset)' --all
     lg2 = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     last = log -1 HEAD
@@ -16,6 +15,12 @@
     dump = cat-file -p
 
 [url "git@gitlab.widget-inc.com:"]
-        insteadOf = http://gitlab.widget-inc.com/
+    insteadOf = http://gitlab.widget-inc.com/
 [core]
 	editor = vim
+	quotepath = false
+[i18n]
+	commitencoding = utf-8
+	logoutputencoding = utf-8
+[init]
+	templatedir = ~/.git-templates

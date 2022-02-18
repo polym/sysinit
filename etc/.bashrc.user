@@ -45,9 +45,10 @@ export GOROOT_BOOTSTRAP=
 alias diff='colordiff'
 alias apt-get='sudo apt-get'
 
-export LC_ALL=C
+#export LC_ALL=C
 #export LANG=zh_CN.UTF-8
 #export LC_CTYPE="zh_CN.UTF-8"
+export LC_ALL=en_US.UTF-8
 
 _upx()
 {
@@ -57,3 +58,7 @@ _upx()
 complete -F _upx upx
  
 alias tmux='tmux -u'
+
+export PATH=$PATH:/root/.local/bin/
+
+export LESSCHARSET=utf-8

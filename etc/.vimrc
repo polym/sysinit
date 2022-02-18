@@ -30,6 +30,12 @@ Plugin 'https://github.com/lambdalisue/gina.vim.git'
 Plugin 'https://github.com/greymd/oscyank.vim'
 Plugin 'https://github.com/junegunn/fzf.git'
 Plugin 'https://github.com/codota/tabnine-vim'
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-glaive'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
 call vundle#end()
 
 "let g:go_def_mode = 'godef'
@@ -77,13 +83,19 @@ let g:NERDTreeDirArrowCollapsible = '📂'
 
 map <Leader>y :Oscyank<CR>
 
+map <Leader>b :GoBuild<CR>
 map <Leader>TT :GoTestFunc<CR>
-map <Leader>TG :GoTestFunc<CR>
+map <Leader>TG :GoTest<CR>
+
+map <Leader>mb :!make build<CR>
 
 map <Leader>F :FZF<CR>
 
 map <Leader>GS :Gina status --opener=vnew<CR>
 map <Leader>GM :Gina commit<CR>
+
+map <Leader>r :GoReferrers<CR>
+map <Leader>i :GoImplements<CR>
 
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
@@ -92,6 +104,7 @@ let g:go_highlight_methods = 1
 let g:go_def_mode = "gopls"
 "let g:go_fmt_command = "goimports"
 let g:go_test_timeout = '10m'
+let g:go_fillstruct_mode = 'gopls'
 
 let g:SignatureMap = {
         \ 'Leader'             :  "m",
@@ -130,3 +143,19 @@ let g:ycm_log_level = 'debug'
 let g:ycm_show_diagnostics_ui = 1
 let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_enable_diagnostic_highlighting = 0
+
+" call glaive#Install()
+" Glaive codefmt clang_format_style="{IndentWidth: 4, ColumnLimit: 120, AllowShortIfStatementsOnASingleLine: false}"
+" augroup autoformat_settings
+"   autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
+" augroup END
+
+augroup Racer
+    autocmd!
+    autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
+    autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
+    autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
+    autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
+    autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
+    autocmd FileType rust nmap <buffer> <leader>gD <Plug>(rust-doc-tab)
+augroup END

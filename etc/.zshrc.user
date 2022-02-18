@@ -1,0 +1,36 @@
+# Go environment 
+export GOPATH=$HOME/golang/3rdpkg:$HOME/golang/go:/disk/ssd1/work/upyun
+export GOROOT=$HOME/golang/go
+export GOBIN=$GOROOT/bin
+export PATH=$GOROOT/bin:$PATH
+export GOROOT_BOOTSTRAP=
+
+alias diff='colordiff'
+alias apt-get='sudo apt-get'
+
+#export LC_ALL=C
+#export LANG=zh_CN.UTF-8
+#export LC_CTYPE="zh_CN.UTF-8"
+export LC_ALL=en_US.UTF-8
+
+_upx()
+{
+    local cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=( $(compgen -W "ls pwd cd mkdir put get login logout rm" -- $cur) )
+}
+complete -F _upx upx
+ 
+alias tmux='tmux -u'
+
+export LUFFY_TEST_YAML_CONFIG=/root/work/upyun/src/luffy/cfg/config-v2.yaml
+export HOLDON_TEST_YAML_CONFIG=/root/work/upyun/holdon/config.yaml
+export PATH=$PATH:/root/.local/bin/
+
+export LESSCHARSET=utf-8
+export GITLAB_PRIVATE_TOKEN=eFNd_GvTg-EEc2CBPXxT
+
+export PROMPT="%{$fg_bold[green]%}${(%):-%m} ${PROMPT}"
+
+unsetopt share_history
+
+source $HOME/.cargo/env
