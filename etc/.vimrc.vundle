@@ -1,16 +1,32 @@
-set encoding=utf-8
+"https://askubuntu.com/questions/894118/vundle-installation-fail
+
 set nocompatible
+
+" filetype func off
 filetype off
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'git://github.com/altercation/vim-colors-solarized.git'
-Plugin 'https://github.com/Valloric/YouCompleteMe'
+"Plugin 'https://github.com/Valloric/YouCompleteMe'
 Plugin 'https://github.com/fatih/vim-go.git'
 Plugin 'https://github.com/honza/dockerfile.vim'
 Plugin 'git://github.com/tpope/vim-commentary.git'
 Plugin 'https://github.com/mileszs/ack.vim'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'https://github.com/majutsushi/tagbar.git'
+Plugin 'https://github.com/lambdalisue/gina.vim.git'
+Plugin 'https://github.com/greymd/oscyank.vim'
+Plugin 'https://github.com/junegunn/fzf.git'
+Plugin 'https://github.com/codota/tabnine-vim'
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-glaive'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
 call vundle#end()
+
+" filetype func on
 filetype plugin indent on
