@@ -1,8 +1,8 @@
-name: test in ubuntu-20.04
+name: test on ubuntu-20.04
 on: [push]
 jobs:
   test:
     runs-on: ubuntu-20.04
     steps:
       - run: pwd
-      - run: CI=true ${{ github.workspace }}/start.sh
+      - run: CI=true ../start.sh
