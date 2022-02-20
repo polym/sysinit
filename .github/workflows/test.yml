@@ -4,4 +4,5 @@ jobs:
   test:
     runs-on: ubuntu-20.04
     steps:
-      - run: CI=true ./start.sh
+      - run: pwd
+      - run: CI=true ${{ github.workspace }}/start.sh
