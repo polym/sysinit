@@ -3,4 +3,5 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-20.04
-    step: CI=true ./start.sh
+    steps:
+      - run: CI=true ./start.sh
