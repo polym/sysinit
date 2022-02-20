@@ -3,7 +3,9 @@ set -xe
 ROOT=$(pwd)/$(dirname "${BASH_SOURCE}")
 echo $ROOT
 ## Global VAR
-pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool ntpdate ack-grep tcpdump python python3 openssh-server unzip python3-pip jq locales cmake colordiff zsh ripgrep"
+pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool \
+    ntpdate ack-grep tcpdump python python3 openssh-server unzip python3-pip \
+    jq locales cmake colordiff zsh ripgrep"
 
 export DEBIAN_FRONTEND=noninteractive
 export TZ=Etc/UTC
@@ -27,7 +29,7 @@ export LANGUAGE=en_US.UTF-8; export LANG=en_US.UTF-8; export LC_ALL=en_US.UTF-8;
 dpkg-reconfigure locales
 
 ### Install Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+git clone https://github.com/ohmyzsh/ohmyzsh.git /tmp/ohmyzsh && /tmp/ohmyzsh/tools/install.sh --unattended
 
 ### Config it
 if [ ! -f $HOME/.bashrc.user ]; then
@@ -81,7 +83,8 @@ else
 fi
 $HOME/.vim/bundle/fzf/install --all
 
-### Install Docker TODO
+### Install Docker
+curl -fsSL https://get.docker.com | sh
 
 ### Install upx
 GOPROXY="https://goproxy.cn,direct" go install github.com/upyun/upx@v0.3.6
@@ -89,6 +92,8 @@ GOPROXY="https://goproxy.cn,direct" go install github.com/upyun/upx@v0.3.6
 ### Install https://github.com/wg/wrk
 cd /tmp && git clone https://github.com/wg/wrk && cd wrk && make && mv wrk /usr/bin
 
-### Rust TODO: config
+### Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/rustup.sh && sh /tmp/rustup.sh -y
 source $HOME/.cargo/env
+
+chsh -s `which zsh`
