@@ -24,3 +24,4 @@
 	logoutputencoding = utf-8
 [init]
 	templatedir = ~/.git-templates
+	defaultBranch = main
