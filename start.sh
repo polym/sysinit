@@ -4,7 +4,7 @@ ROOT=$(pwd)/$(dirname "${BASH_SOURCE}")
 echo $ROOT
 ## Global VAR
 pkgs="wget curl vim tmux git gcc g++ make automake autoconf patch libtool \
-    ntpdate ack-grep tcpdump python python3 openssh-server unzip python3-pip \
+    ntpdate ack-grep tcpdump python3 openssh-server unzip python3-pip \
     jq locales cmake colordiff zsh ripgrep"
 
 export DEBIAN_FRONTEND=noninteractive
@@ -13,7 +13,7 @@ export TZ=Etc/UTC
 ### Apt Install
 if [ "$CI" != "true" ]; then
     # travis ci connect 163.com timeout
-    sed -i 's/archive.ubuntu.com/mirrors.163.com/' /etc/apt/sources.list
+    sed -i 's#/archive.ubuntu.com#/cn.archive.ubuntu.com#g' /etc/apt/sources.list
 fi
 apt-get update && apt-get install -y $pkgs
 
@@ -57,7 +57,7 @@ fi
 ### Install Golang From Source
 mkdir -p $HOME/golang/3rdpkg \
     && cd $HOME/golang \
-    && wget http://collection.b0.upaiyun.com/softwares/go-src.tar.gz \
+    && wget http://collection.b0.upaiyun.com/softwares/go-src.tar.gz -O go-src.tar.gz \
     && tar zxvf go-src.tar.gz && rm go-src.tar.gz && mv go go-src \
     && cp -R go-src go-1.4 && cp -R go-src go-1.17
 

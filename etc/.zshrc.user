@@ -34,3 +34,8 @@ export PROMPT="%{$fg_bold[green]%}${(%):-%m} ${PROMPT}"
 unsetopt share_history
 
 source $HOME/.cargo/env
+
+bindkey "[D" backward-word
+bindkey "[C" forward-word
+bindkey "^[a" beginning-of-line
+bindkey "^[e" end-of-line

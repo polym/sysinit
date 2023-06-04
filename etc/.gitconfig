@@ -14,8 +14,8 @@
     type = cat-file -t
     dump = cat-file -p
 
-[url "git@gitlab.widget-inc.com:"]
-    insteadOf = http://gitlab.widget-inc.com/
+#[url "git@gitlab.widget-inc.com:"]
+#    insteadOf = http://gitlab.widget-inc.com/
 [core]
 	editor = vim
 	quotepath = false
@@ -25,3 +25,5 @@
 [init]
 	templatedir = ~/.git-templates
 	defaultBranch = main
+[credential]
+	helper = store

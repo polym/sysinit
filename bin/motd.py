@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Written in 2012 by Joe Tsai <joetsai@digital-static.net>
 #
@@ -61,8 +61,8 @@ TEXT_SECONDARY = DGRAY1
 WARNING        = YELLOW1
 
 # Unicode block characters
-UPPER_HALF_BLOCK = unichr(0x2580)
-LOWER_HALF_BLOCK = unichr(0x2584)
+UPPER_HALF_BLOCK = chr(0x2580)
+LOWER_HALF_BLOCK = chr(0x2584)
 
 # Logo definition
 LOGO = (
@@ -126,7 +126,7 @@ def shell_escape(data):
 def colorize(text, color):
     """Colorize the text only if color is enabled"""
     global opts
-    return color + unicode(text) + RESET if opts.color else text
+    return color + text + RESET if opts.color else text
 
 
 def regex_find(line_list, regex_list, result_list, clear_results = True):
@@ -202,7 +202,7 @@ def display_border(type, color = TEXT_SECONDARY):
 
     if opts.border and utf_support and columns:
         border = type * columns
-        print colorize(border, color)
+        print(colorize(border, color))
 
 
 def display_upper_border():
@@ -222,13 +222,13 @@ def display_welcome():
     cmd = 'hostname -f' if FULL_HOSTNAME else 'hostname'
     host_name = ''.join(exec_cmd(cmd)).strip()
     values = colorize(host_name, TEXT_PRIMARY), colorize(os_name, TEXT_PRIMARY)
-    print " Welcome to %s running %s" % values
+    print(" Welcome to %s running %s" % values)
 
 
 def display_logo():
     """Display the logo"""
     global opts
-    print LOGO % (LOGO_COLORS if opts.color else tuple([''] * len(LOGO_COLORS)))
+    print(LOGO % (LOGO_COLORS if opts.color else tuple([''] * len(LOGO_COLORS))))
 
 
 def display_info():
@@ -238,7 +238,7 @@ def display_info():
     c = 1
     for key, value in info_list:
         key = (key + ':').ljust(max_length + 4, ' ')
-        print "   %s---- %s%s" % ('|' if c != len(info_list) else '`', colorize(key, GREEN1), value)
+        print("   %s---- %s%s" % ('|' if c != len(info_list) else '`', colorize(key, GREEN1), value))
         c += 1
 
 
@@ -314,7 +314,7 @@ if opts.warn:
 
 # Check prefix mode
 if opts.prefix_mode and opts.prefix_mode not in ['si', 'iec']:
-    print "Invalid prefix mode: %s" % opts.prefix_mode
+    print("Invalid prefix mode: %s" % opts.prefix_mode)
     sys.exit(1)
 units = si_unitize if (opts.prefix_mode == 'si') else iec_unitize
 
@@ -391,7 +391,7 @@ try:
             skip = False
         elif skip:
             continue
-        message = '%s %s' % (colorize(str(value), NUM_PRIMARY), unit)
+        message = '%s %s' % (colorize(str(int(value)), NUM_PRIMARY), unit)
         message_list.append(message)
     if message_list:
         info_list.append(('Uptime', ', '.join(message_list)))
@@ -562,8 +562,8 @@ except:
 # Display the MOTD
 display_upper_border()
 display_welcome()
-print '  \\'
+print('  \\')
 #display_logo()
 display_info()
 display_lower_border()
-print ''
+print('')
