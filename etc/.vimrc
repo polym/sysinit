@@ -4,6 +4,7 @@ filetype on
 filetype plugin on
 
 vnoremap <Leader>y "+y
+nmap <Leader>Y "+y
 nmap <Leader>p "+p
 
 set incsearch
@@ -158,7 +159,7 @@ augroup Racer
     autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
     autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
     autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
-    autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
+"    autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
     autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
     autocmd FileType rust nmap <buffer> <leader>gD <Plug>(rust-doc-tab)
 augroup END
@@ -166,6 +167,7 @@ augroup END
 " vim-lsp
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_diagnostics_enabled = 0
+let g:lsp_log_file = expand('~/vim-lsp.log')
 
 if executable('pylsp')
     " pip install python-lsp-server
@@ -185,13 +187,13 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
     nmap <buffer> gr <plug>(lsp-references)
     nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
+"    nmap <buffer> gt <plug>(lsp-type-definition)
     nmap <buffer> <leader>rn <plug>(lsp-rename)
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
-#    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
-#    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+"    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+"    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
     let g:lsp_format_sync_timeout = 1000
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
